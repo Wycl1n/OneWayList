@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Leviofan\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Leviofan\\.nuget\\packages"
+    ]
+  }
+}
