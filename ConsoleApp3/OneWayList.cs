@@ -77,6 +77,24 @@ namespace ConsoleApp3
             return current.data;
         }
 
+        public int[] ToArray()
+        {
+            Node cur = this.firstNode;
+            int[] arr = new int[this.length];
+            for (int i = 0; i < this.length; i++)
+            {
+                arr[i] = cur.data;
+                cur = cur.nextNode;
+            }
+            return arr;
+        }
+        public OneWayList ToList(int[] arr)
+        {
+            OneWayList list = new OneWayList();
+            for (int i = 0; i < arr.Length; i++)
+                list.Add(arr[i]);
+            return list;
+        }
 
         public class Node
         {
