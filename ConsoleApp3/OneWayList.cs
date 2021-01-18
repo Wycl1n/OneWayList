@@ -95,7 +95,6 @@ namespace ConsoleApp3
                 list.Add(arr[i]);
             return list;
         }
-<<<<<<< HEAD
         public void Sort()
         {
             int[] arr = this.ToArray();
@@ -108,8 +107,6 @@ namespace ConsoleApp3
                         arr[j + 1] = t;
                     }
         }
-=======
->>>>>>> ArrayMethods
 
         public class Node
         {
