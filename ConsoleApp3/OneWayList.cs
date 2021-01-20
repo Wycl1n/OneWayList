@@ -107,8 +107,6 @@ namespace ConsoleApp3
                         arr[j + 1] = t;
                     }
         }
-        //
-        //
         // Some sorts will be here
         public OneWayList SortCounting()
         {
