@@ -35,6 +35,9 @@ namespace ВМ
             List.Show();
             List = List.QSort();
             List.Show();
+            List.Clear();
+            List.Add(1);
+            List.Show();
         }
     }
 }

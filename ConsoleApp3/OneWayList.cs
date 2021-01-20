@@ -44,6 +44,11 @@ namespace ConsoleApp3
                 firstNode = lastNode = null;
             }
         }
+        public void Clear()
+        {
+            this.firstNode = null;
+            this.length = 0;
+        }
         public void Add(int data)
         {
             Node tnode = new Node(data);
@@ -76,7 +81,6 @@ namespace ConsoleApp3
             }
             return current.data;
         }
-
         public int[] ToArray()
         {
             Node cur = this.firstNode;
@@ -107,7 +111,6 @@ namespace ConsoleApp3
                         arr[j + 1] = t;
                     }
         }
-        // Some sorts will be here
         public OneWayList SortCounting()
         {
             int[] arr = this.ToArray();
@@ -175,7 +178,6 @@ namespace ConsoleApp3
                 return array;
             }
         }
-        //
         public class Node
         {
             internal int data;
