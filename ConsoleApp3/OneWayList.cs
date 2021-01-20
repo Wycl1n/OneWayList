@@ -110,7 +110,34 @@ namespace ConsoleApp3
         //
         //
         // Some sorts will be here
-        //
+        public OneWayList SortCounting()
+        {
+            int[] arr = this.ToArray();
+            if (arr.Length <= 1) return this;
+            int max, min;
+            max = min = arr[0];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] > max)
+                    max = arr[i];
+                if (arr[i] < min)
+                    min = arr[i];
+            }
+            if (min >= 0)
+            {
+                int[] t = new int[max + 1];
+                for (int i = 0; i < arr.Length; i++)
+                    t[arr[i]]++;
+                for (int i = 0, j = 0; i <= max; i++)
+                    for (int z = 0; z < t[i]; z++)
+                        arr[j++] = i;
+                return this.ToList(arr);
+            }
+            else
+            {
+                return this;
+            }
+        }
         //
         public class Node
         {
