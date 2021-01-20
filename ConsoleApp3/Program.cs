@@ -33,6 +33,8 @@ namespace ВМ
             arr[0] = 3;
             List = List.ToList(arr);
             List.Show();
+            List = List.SortCounting();
+            List.Show();
         }
     }
 }
