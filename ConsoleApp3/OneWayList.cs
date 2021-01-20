@@ -136,6 +136,45 @@ namespace ConsoleApp3
                 return this;
             }
         }
+        public OneWayList QSort()
+        {
+            return this.ToList(QuickSort(this.ToArray(), 0, this.length - 1));
+            
+            static int Partition(int[] array, int minIndex, int maxIndex)
+            {
+                int t;
+                var pivot = minIndex - 1;
+                for (var i = minIndex; i < maxIndex; i++)
+                {
+                    if (array[i] < array[maxIndex])
+                    {
+                        pivot++;
+                        t = array[pivot];
+                        array[pivot] = array[i];
+                        array[i] = t;
+                    }
+                }
+
+                pivot++;
+                t = array[pivot];
+                array[pivot] = array[maxIndex];
+                array[maxIndex] = t;
+                return pivot;
+            }
+            static int[] QuickSort(int[] array, int minIndex, int maxIndex)
+            {
+                if (minIndex >= maxIndex)
+                {
+                    return array;
+                }
+
+                var pivotIndex = Partition(array, minIndex, maxIndex);
+                QuickSort(array, minIndex, pivotIndex - 1);
+                QuickSort(array, pivotIndex + 1, maxIndex);
+
+                return array;
+            }
+        }
         //
         public class Node
         {
