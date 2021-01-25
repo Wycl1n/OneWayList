@@ -49,9 +49,9 @@ namespace ConsoleApp3
             this.firstNode = null;
             this.length = 0;
         }
-        public void Add(int data)
+        public void Add(string login, string password)
         {
-            Node tnode = new Node(data);
+            Node tnode = new Node(login, Hash(password));
             if (this.length == 0) this.firstNode = this.lastNode = tnode;
             else
             {
@@ -62,130 +62,71 @@ namespace ConsoleApp3
 
             this.length++;
         }
+        public (string,string) Get(int index)
+        {
+            Node cur = this.firstNode;
+            for (int i = 0; i < index - 1; i++)
+                cur = cur.nextNode;
+            return (cur.login, cur.passwordHash);
+        }
+        public bool Check(string login, string password)
+        {
+            Node cur = this.firstNode;
+            for(int i=0;i<this.length;i++)
+            {
+                if(cur.login==login)
+                    if (cur.passwordHash == Hash(password))
+                        return true;
+                cur = cur.nextNode;
+            }
+            return false;
+        }
+        private string Hash(string message)
+        {
+            string resultString = "";
+            /*char[] symbols = new char[63];
+            symbols[0] = '_';
+            byte tI = 1;
+            for (int i = 65; i <= 90; i++)
+                symbols[tI++] = (char)i;
+            for (int i = 48; i <= 57; i++)
+                symbols[tI++] = (char)i;
+            for (int i = 97; i <= 122; i++)
+                symbols[tI++] = (char)i;
+
+            Random rand = new Random();
+            string tNumber = "";
+            for (int i = 0; i < message.Length; i++)
+                tNumber += symbols[rand.Next() % 62];
+            for (int i = 0; i < message.Length; i++)
+            {
+                resultString += (char)((int)message[i] + (int)tNumber[i]);
+                resultString += tNumber[message.Length - 1 - i];
+            }*/
+            for (int i = 0; i < message.Length; i++)
+                resultString += (char)((int)message[i] + 1);
+            return resultString;
+        }
         public void Show()
         {
             Node current = firstNode;
             for (int i=0;i<this.length;i++)
             {
-                Console.Write(current.data + "| ");
+                Console.WriteLine($"{current.login}|{current.passwordHash}");
                 current = current.nextNode;
             }
             Console.WriteLine();
         }
-        public int Get(int index)
-        {
-            Node current = firstNode;
-            for (int i = 0; i < index; i++) 
-            {
-                current = current.nextNode;
-            }
-            return current.data;
-        }
-        public int[] ToArray()
-        {
-            Node cur = this.firstNode;
-            int[] arr = new int[this.length];
-            for (int i = 0; i < this.length; i++)
-            {
-                arr[i] = cur.data;
-                cur = cur.nextNode;
-            }
-            return arr;
-        }
-        public OneWayList ToList(int[] arr)
-        {
-            OneWayList list = new OneWayList();
-            for (int i = 0; i < arr.Length; i++)
-                list.Add(arr[i]);
-            return list;
-        }
-        public void Sort()
-        {
-            int[] arr = this.ToArray();
-            for (int i = 0; i < arr.Length; i++)
-                for (int j = 0; j < arr.Length - 1 - i; j++)
-                    if (arr[j] > arr[j + 1]) 
-                    {
-                        int t = arr[j];
-                        arr[j] = arr[j + 1];
-                        arr[j + 1] = t;
-                    }
-        }
-        public OneWayList SortCounting()
-        {
-            int[] arr = this.ToArray();
-            if (arr.Length <= 1) return this;
-            int max, min;
-            max = min = arr[0];
-            for (int i = 0; i < arr.Length; i++)
-            {
-                if (arr[i] > max)
-                    max = arr[i];
-                if (arr[i] < min)
-                    min = arr[i];
-            }
-            if (min >= 0)
-            {
-                int[] t = new int[max + 1];
-                for (int i = 0; i < arr.Length; i++)
-                    t[arr[i]]++;
-                for (int i = 0, j = 0; i <= max; i++)
-                    for (int z = 0; z < t[i]; z++)
-                        arr[j++] = i;
-                return this.ToList(arr);
-            }
-            else
-            {
-                return this;
-            }
-        }
-        public OneWayList QSort()
-        {
-            return this.ToList(QuickSort(this.ToArray(), 0, this.length - 1));
-            
-            static int Partition(int[] array, int minIndex, int maxIndex)
-            {
-                int t;
-                var pivot = minIndex - 1;
-                for (var i = minIndex; i < maxIndex; i++)
-                {
-                    if (array[i] < array[maxIndex])
-                    {
-                        pivot++;
-                        t = array[pivot];
-                        array[pivot] = array[i];
-                        array[i] = t;
-                    }
-                }
 
-                pivot++;
-                t = array[pivot];
-                array[pivot] = array[maxIndex];
-                array[maxIndex] = t;
-                return pivot;
-            }
-            static int[] QuickSort(int[] array, int minIndex, int maxIndex)
-            {
-                if (minIndex >= maxIndex)
-                {
-                    return array;
-                }
-
-                var pivotIndex = Partition(array, minIndex, maxIndex);
-                QuickSort(array, minIndex, pivotIndex - 1);
-                QuickSort(array, pivotIndex + 1, maxIndex);
-
-                return array;
-            }
-        }
         public class Node
         {
-            internal int data;
-            internal Node nextNode;//pointer
+            internal string login, passwordHash;
+            internal Node nextNode;
 
-            public Node(int data)
+            public Node(string log, string pass)
             {
-                this.data = data;
+                this.login = log;
+                this.passwordHash = pass;
             }
         }
     }
